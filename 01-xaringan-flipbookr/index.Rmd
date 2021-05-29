@@ -1,0 +1,54 @@
+---
+title: "Example highchater using flipbookr"
+subtitle: "⚔<br/>with xaringan"
+author: "Yihui Xie"
+institute: "RStudio, PBC"
+date: "2016/12/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+class: inverse, center, middle
+
+# Get Started
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+# remotes::install_github("EvaMaeRey/flipbookr")
+library(flipbookr)
+library(highcharter)
+```
+
+---
+
+`r chunk_reveal("steps", title="## Highcharter step by step", font_size_code = "50%")`
+
+```{r steps, include=FALSE}
+library(highcharter)
+data(penguins, package = "palmerpenguins")
+
+highchart() %>% 
+  hc_add_series(
+    penguins, 
+    "scatter", 
+    hcaes(x = flipper_length_mm, y = bill_length_mm, group = species)
+    ) %>% 
+  hc_xAxis(title = list(text = "Flipper Length (in <i>mm</i>)")) %>% 
+  hc_colors(viridisLite::cividis(3, end  = 0.9)) %>% 
+  hc_plotOptions(series = list(marker = list(symbol = "circle"))) %>% 
+  hc_title(text = "Flipper length vs bill lenght") %>% 
+  hc_subtitle(text = "Data from <code>penguins</code> from palmerpenguins package") %>% 
+  hc_add_theme(hc_theme_smpl())
+```
+
+---
+
+## Other Slide
